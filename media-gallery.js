@@ -1,27 +1,30 @@
-(function openParklinksMediaGallery() {
+(function openVertisMediaGallery() {
   const targetWin = window.top || window.parent || window;
   const targetDoc = targetWin.document;
-  const STYLE_ID = 'parklinks-gallery-theme-v6';
-  const FONT_ID = 'parklinks-gallery-fonts-v2';
+  const STYLE_ID = 'Vertis-gallery-theme-v6';
+  const FONT_ID = 'Vertis-gallery-fonts-v2';
+
+  // Converted GitHub raw links to jsDelivr Edge CDN URLs for fast response times
+  const BASE_CDN = "https://cdn.jsdelivr.net/gh/virtual-sudo/vista-images-compressed@main/";
 
   const GALLERY_IMAGES = [
-    { caption: "image-1", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/_MG_0979-HDR.jpg?raw=true" },
-    { caption: "image-2", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/_MG_0974-HDR.jpg?raw=true" },
-    { caption: "image-3", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/_MG_0729.jpg?raw=true" },
-    { caption: "image-4", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DSCF2719.jpg?raw=true" },
-    { caption: "image-5", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DSCF2700.jpg?raw=true" },
-    { caption: "image-6", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DSCF2653.jpg?raw=true" },
-    { caption: "image-7", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DSCF2621.jpg?raw=true" },
-    { caption: "image-8", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DSCF2554.jpg?raw=true" },
-    { caption: "image-9", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DJI_0267.jpg?raw=true" },
-    { caption: "image-10", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DJI_0241.jpg?raw=true" },
-    { caption: "image-11", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DJI_0190.jpg?raw=true" },
-    { caption: "image-12", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DJI_0074.jpg?raw=true" },
-    { caption: "image-13", img: "https://github.com/virtual-sudo/vista-images-compressed/blob/main/DJI_0061.jpg?raw=true" }
+    { caption: "image-1", img: `${BASE_CDN}_MG_0979-HDR.jpg` },
+    { caption: "image-2", img: `${BASE_CDN}_MG_0974-HDR.jpg` },
+    { caption: "image-3", img: `${BASE_CDN}_MG_0729.jpg` },
+    { caption: "image-4", img: `${BASE_CDN}DSCF2719.jpg` },
+    { caption: "image-5", img: `${BASE_CDN}DSCF2700.jpg` },
+    { caption: "image-6", img: `${BASE_CDN}DSCF2653.jpg` },
+    { caption: "image-7", img: `${BASE_CDN}DSCF2621.jpg` },
+    { caption: "image-8", img: `${BASE_CDN}DSCF2554.jpg` },
+    { caption: "image-9", img: `${BASE_CDN}DJI_0267.jpg` },
+    { caption: "image-10", img: `${BASE_CDN}DJI_0241.jpg` },
+    { caption: "image-11", img: `${BASE_CDN}DJI_0190.jpg` },
+    { caption: "image-12", img: `${BASE_CDN}DJI_0074.jpg` },
+    { caption: "image-13", img: `${BASE_CDN}DJI_0061.jpg` }
   ];
 
-  /* ---------- Cleanup any previous instance (DOM + listeners) ---------- */
-  ['parklinks-gallery-modal', 'parklinks-gallery-lightbox'].forEach(id => {
+  /* ---------- Cleanup any previous instance ---------- */
+  ['Vertis-gallery-modal', 'Vertis-gallery-lightbox'].forEach(id => {
     const el = targetDoc.getElementById(id);
     if (el) el.remove();
   });
@@ -48,8 +51,7 @@
     const styles = targetDoc.createElement('style');
     styles.id = STYLE_ID;
     styles.innerHTML = `
-      /* ===== Design tokens ===== */
-      #parklinks-gallery-modal, #parklinks-gallery-lightbox {
+      #Vertis-gallery-modal, #Vertis-gallery-lightbox {
         --pl-primary: #E8791D;
         --pl-accent-1: #F4A947;
         --pl-accent-2: #B85A0F;
@@ -62,17 +64,15 @@
         font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
         font-weight: 400 !important;
       }
-      #parklinks-gallery-modal *, #parklinks-gallery-lightbox * { box-sizing: border-box !important; font-weight: 400 !important; }
+      #Vertis-gallery-modal *, #Vertis-gallery-lightbox * { box-sizing: border-box !important; font-weight: 400 !important; }
 
-      /* ===== Focus states (accessibility) ===== */
-      #parklinks-gallery-modal *:focus-visible, #parklinks-gallery-lightbox *:focus-visible {
+      #Vertis-gallery-modal *:focus-visible, #Vertis-gallery-lightbox *:focus-visible {
         outline: 2px solid var(--pl-primary) !important;
         outline-offset: 3px !important;
         border-radius: 6px !important;
       }
 
-      /* ===== Modal shell ===== */
-      #parklinks-gallery-modal {
+      #Vertis-gallery-modal {
         position: fixed !important; inset: 0 !important;
         display: flex !important; align-items: center !important; justify-content: center !important;
         padding: 24px !important; z-index: 2147483646 !important;
@@ -84,7 +84,7 @@
         -webkit-backdrop-filter: blur(18px) saturate(1.1) !important;
         opacity: 0 !important; transition: opacity 0.4s var(--pl-ease) !important;
       }
-      #parklinks-gallery-modal.is-open { opacity: 1 !important; }
+      #Vertis-gallery-modal.is-open { opacity: 1 !important; }
 
       .pl-modal__panel {
         position: relative !important; width: 100% !important; max-width: 1180px !important;
@@ -97,7 +97,7 @@
         opacity: 0 !important;
         transition: transform 0.5s var(--pl-ease), opacity 0.5s var(--pl-ease) !important;
       }
-      #parklinks-gallery-modal.is-open .pl-modal__panel { transform: translateY(0) scale(1) !important; opacity: 1 !important; }
+      #Vertis-gallery-modal.is-open .pl-modal__panel { transform: translateY(0) scale(1) !important; opacity: 1 !important; }
 
       .pl-modal__header { margin-bottom: 24px !important; padding-right: 40px !important; }
       .pl-modal__eyebrow {
@@ -106,14 +106,8 @@
         text-transform: uppercase !important; color: var(--pl-accent-1) !important; margin-bottom: 10px !important;
       }
       .pl-modal__eyebrow-dot { width: 6px !important; height: 6px !important; border-radius: 50% !important; background: var(--pl-primary) !important; }
-      .pl-modal__title {
-        font-size: 28px !important; letter-spacing: -0.3px !important;
-        color: var(--pl-text) !important; margin: 0 !important;
-      }
-      .pl-modal__divider {
-        height: 1px !important; margin-top: 22px !important;
-        background: linear-gradient(90deg, var(--pl-primary), rgba(232,121,29,0)) !important;
-      }
+      .pl-modal__title { font-size: 28px !important; letter-spacing: -0.3px !important; color: var(--pl-text) !important; margin: 0 !important; }
+      .pl-modal__divider { height: 1px !important; margin-top: 22px !important; background: linear-gradient(90deg, var(--pl-primary), rgba(232,121,29,0)) !important; }
 
       .pl-modal__close {
         position: absolute !important; top: 28px !important; right: 28px !important;
@@ -125,20 +119,11 @@
       .pl-modal__close:hover { background: var(--pl-primary) !important; border-color: var(--pl-primary) !important; transform: rotate(90deg) !important; }
       .pl-modal__close svg { width: 16px !important; height: 16px !important; }
 
-      /* ===== Scroll body ===== */
-      .pl-scroll-body {
-        width: 100% !important; max-height: 72vh !important; overflow-y: auto !important;
-        padding: 4px 6px 4px 0 !important;
-      }
+      .pl-scroll-body { width: 100% !important; max-height: 72vh !important; overflow-y: auto !important; padding: 4px 6px 4px 0 !important; }
       .pl-scroll-body::-webkit-scrollbar { width: 6px !important; }
       .pl-scroll-body::-webkit-scrollbar-thumb { background: rgba(244,169,71,0.35) !important; border-radius: 4px !important; }
 
-      /* ===== Masonry grid ===== */
-      .pl-grid {
-        column-count: 3 !important;
-        column-gap: 16px !important;
-        width: 100% !important;
-      }
+      .pl-grid { column-count: 3 !important; column-gap: 16px !important; width: 100% !important; }
 
       .pl-card {
         position: relative !important; display: block !important;
@@ -146,6 +131,7 @@
         margin: 0 0 16px !important; border-radius: 14px !important; overflow: hidden !important;
         cursor: pointer !important; background: var(--pl-ink-800) !important;
         border: 1px solid rgba(255,255,255,0.08) !important;
+        min-height: 180px !important; /* Reserve space while images lazy load */
         transition: transform 0.4s var(--pl-ease), box-shadow 0.4s var(--pl-ease), border-color 0.4s var(--pl-ease) !important;
       }
       .pl-card:hover {
@@ -180,38 +166,28 @@
       .pl-card:hover .pl-card__zoom { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; background: var(--pl-primary) !important; }
       .pl-card__zoom svg { width: 16px !important; height: 16px !important; }
 
-      /* ===== Lightbox — frame hugs each image's real dimensions ===== */
-      #parklinks-gallery-lightbox {
+      #Vertis-gallery-lightbox {
         position: fixed !important; inset: 0 !important; z-index: 2147483647 !important;
         display: flex !important; align-items: center !important; justify-content: center !important;
         background: radial-gradient(circle at 50% 50%, rgba(232,121,29,0.12), rgba(26,22,17,0.88) 60%) !important;
         backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
         opacity: 0 !important; transition: opacity 0.4s var(--pl-ease) !important;
       }
-      #parklinks-gallery-lightbox.is-open { opacity: 1 !important; }
+      #Vertis-gallery-lightbox.is-open { opacity: 1 !important; }
 
       .pl-lightbox__stage {
-        position: relative !important;
-        display: inline-flex !important;
-        max-width: 88vw !important;
-        max-height: 80vh !important;
-        border-radius: 16px !important;
-        overflow: hidden !important;
+        position: relative !important; display: inline-flex !important;
+        max-width: 88vw !important; max-height: 80vh !important;
+        border-radius: 16px !important; overflow: hidden !important;
         background: rgba(255,255,255,0.04) !important;
         border: 1px solid rgba(244,169,71,0.25) !important;
         box-shadow: 0 40px 100px rgba(0,0,0,0.5) !important;
         transform: scale(0.96) !important; opacity: 0 !important;
         transition: transform 0.45s var(--pl-ease), opacity 0.45s var(--pl-ease) !important;
       }
-      #parklinks-gallery-lightbox.is-open .pl-lightbox__stage { transform: scale(1) !important; opacity: 1 !important; }
+      #Vertis-gallery-lightbox.is-open .pl-lightbox__stage { transform: scale(1) !important; opacity: 1 !important; }
 
-      .pl-lightbox__image {
-        display: block !important;
-        max-width: 88vw !important;
-        max-height: 80vh !important;
-        width: auto !important;
-        height: auto !important;
-      }
+      .pl-lightbox__image { display: block !important; max-width: 88vw !important; max-height: 80vh !important; width: auto !important; height: auto !important; }
 
       .pl-lightbox__counter {
         position: absolute !important; bottom: 14px !important; left: 50% !important; transform: translateX(-50%) !important;
@@ -236,7 +212,6 @@
       .pl-lightbox__nav.prev { left: 24px !important; }
       .pl-lightbox__nav.next { right: 24px !important; }
 
-      /* ===== Responsive ===== */
       @media (max-width: 900px) {
         .pl-modal__panel { padding: 26px !important; border-radius: 22px !important; }
         .pl-modal__title { font-size: 21px !important; }
@@ -265,8 +240,8 @@
   };
 
   /* ---------- Close handlers ---------- */
-  targetWin.closeParklinksModal = function() {
-    const modal = targetDoc.getElementById('parklinks-gallery-modal');
+  targetWin.closeVertisModal = function() {
+    const modal = targetDoc.getElementById('Vertis-gallery-modal');
     if (modal) {
       modal.classList.remove('is-open');
       setTimeout(() => modal.remove(), 300);
@@ -277,8 +252,8 @@
     }
   };
 
-  targetWin.closeParklinksLightbox = function() {
-    const lightbox = targetDoc.getElementById('parklinks-gallery-lightbox');
+  targetWin.closeVertisLightbox = function() {
+    const lightbox = targetDoc.getElementById('Vertis-gallery-lightbox');
     if (lightbox) {
       lightbox.classList.remove('is-open');
       setTimeout(() => lightbox.remove(), 300);
@@ -289,32 +264,41 @@
     }
   };
 
-  /* ---------- Lightbox (with prev/next navigation) ---------- */
-  targetWin.openParklinksLightbox = function(index) {
+  /* ---------- Lightbox + Next/Prev Preloading ---------- */
+  targetWin.openVertisLightbox = function(index) {
     let currentIndex = index;
-    const existing = targetDoc.getElementById('parklinks-gallery-lightbox');
+    const existing = targetDoc.getElementById('Vertis-gallery-lightbox');
     if (existing) existing.remove();
 
     const lightbox = targetDoc.createElement('div');
-    lightbox.id = 'parklinks-gallery-lightbox';
+    lightbox.id = 'Vertis-gallery-lightbox';
     lightbox.setAttribute('role', 'dialog');
     lightbox.setAttribute('aria-modal', 'true');
     lightbox.setAttribute('aria-label', 'Image viewer');
 
+    // Preload next and previous images in memory so clicking arrows feels instant
+    const preloadAdjacent = (idx) => {
+      const nextIdx = (idx + 1) % GALLERY_IMAGES.length;
+      const prevIdx = (idx - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+      new Image().src = GALLERY_IMAGES[nextIdx].img;
+      new Image().src = GALLERY_IMAGES[prevIdx].img;
+    };
+
     const render = () => {
       const item = GALLERY_IMAGES[currentIndex];
       lightbox.innerHTML = `
-        <button class="pl-lightbox__close" aria-label="Close image viewer" onclick="(window.top||window.parent||window).closeParklinksLightbox()">${ICONS.close}</button>
-        <button class="pl-lightbox__nav prev" aria-label="Previous image" onclick="(window.top||window.parent||window).navigateParklinksLightbox(-1)">${ICONS.chevronLeft}</button>
+        <button class="pl-lightbox__close" aria-label="Close image viewer" onclick="(window.top||window.parent||window).closeVertisLightbox()">${ICONS.close}</button>
+        <button class="pl-lightbox__nav prev" aria-label="Previous image" onclick="(window.top||window.parent||window).navigateVertisLightbox(-1)">${ICONS.chevronLeft}</button>
         <div class="pl-lightbox__stage">
-          <img class="pl-lightbox__image" src="${item.img}" alt="${item.caption}">
+          <img class="pl-lightbox__image" src="${item.img}" alt="${item.caption}" decoding="async">
           <div class="pl-lightbox__counter">${currentIndex + 1} / ${GALLERY_IMAGES.length}</div>
         </div>
-        <button class="pl-lightbox__nav next" aria-label="Next image" onclick="(window.top||window.parent||window).navigateParklinksLightbox(1)">${ICONS.chevronRight}</button>
+        <button class="pl-lightbox__nav next" aria-label="Next image" onclick="(window.top||window.parent||window).navigateVertisLightbox(1)">${ICONS.chevronRight}</button>
       `;
+      preloadAdjacent(currentIndex);
     };
 
-    targetWin.navigateParklinksLightbox = function(direction) {
+    targetWin.navigateVertisLightbox = function(direction) {
       currentIndex = (currentIndex + direction + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
       render();
     };
@@ -324,21 +308,23 @@
     requestAnimationFrame(() => lightbox.classList.add('is-open'));
 
     targetWin.__plLightboxKeyHandler = function(e) {
-      if (e.key === 'Escape') targetWin.closeParklinksLightbox();
-      else if (e.key === 'ArrowLeft') targetWin.navigateParklinksLightbox(-1);
-      else if (e.key === 'ArrowRight') targetWin.navigateParklinksLightbox(1);
+      if (e.key === 'Escape') targetWin.closeVertisLightbox();
+      else if (e.key === 'ArrowLeft') targetWin.navigateVertisLightbox(-1);
+      else if (e.key === 'ArrowRight') targetWin.navigateVertisLightbox(1);
     };
     targetDoc.addEventListener('keydown', targetWin.__plLightboxKeyHandler);
   };
 
-  /* ---------- Masonry grid ---------- */
+  /* ---------- Masonry grid (Lazy Loaded) ---------- */
   let gridHTML = '<div class="pl-grid">';
   GALLERY_IMAGES.forEach((item, index) => {
+    // Top 3 images load eagerly, remaining 10 lazy load as user scrolls
+    const loadingStrategy = index < 3 ? 'eager' : 'lazy';
     gridHTML += `
       <div class="pl-card" tabindex="0" role="button" aria-label="Open image ${index + 1}"
-           onclick="(window.top||window.parent||window).openParklinksLightbox(${index})"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();(window.top||window.parent||window).openParklinksLightbox(${index});}">
-        <img class="pl-card__image" src="${item.img}" alt="${item.caption}">
+           onclick="(window.top||window.parent||window).openVertisLightbox(${index})"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();(window.top||window.parent||window).openVertisLightbox(${index});}">
+        <img class="pl-card__image" src="${item.img}" alt="${item.caption}" loading="${loadingStrategy}" decoding="async">
         <div class="pl-card__overlay"></div>
         <div class="pl-card__zoom">${ICONS.expand}</div>
       </div>
@@ -348,13 +334,13 @@
 
   /* ---------- Modal ---------- */
   const modal = targetDoc.createElement('div');
-  modal.id = 'parklinks-gallery-modal';
+  modal.id = 'Vertis-gallery-modal';
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-label', 'Media gallery');
   modal.innerHTML = `
     <div class="pl-modal__panel">
-      <button class="pl-modal__close" aria-label="Close gallery" onclick="(window.top||window.parent||window).closeParklinksModal()">${ICONS.close}</button>
+      <button class="pl-modal__close" aria-label="Close gallery" onclick="(window.top||window.parent||window).closeVertisModal()">${ICONS.close}</button>
       <div class="pl-modal__header">
         <div class="pl-modal__eyebrow"><span class="pl-modal__eyebrow-dot"></span>Exterior Photos</div>
         <h2 class="pl-modal__title">Media Gallery</h2>
@@ -369,7 +355,7 @@
   requestAnimationFrame(() => modal.classList.add('is-open'));
 
   targetWin.__plModalKeyHandler = function(e) {
-    if (e.key === 'Escape') targetWin.closeParklinksModal();
+    if (e.key === 'Escape') targetWin.closeVertisModal();
   };
   targetDoc.addEventListener('keydown', targetWin.__plModalKeyHandler);
 })();
